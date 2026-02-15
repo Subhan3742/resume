@@ -29,6 +29,7 @@ export default function Header() {
           <div className="hidden md:flex gap-8 items-center">
             <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">Home</Link>
             <Link href="/#services" className="text-gray-700 hover:text-blue-600 transition-colors">Services</Link>
+            <Link href="/pricing" className="text-gray-700 hover:text-blue-600 transition-colors">Pricing</Link>
             <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">About</Link>
             <Link href="/portfolio" className="text-gray-700 hover:text-blue-600 transition-colors">Portfolio</Link>
             <Link href="/work" className="text-gray-700 hover:text-blue-600 transition-colors">Work</Link>
@@ -68,6 +69,13 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Services
+              </Link>
+              <Link 
+                href="/pricing" 
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Pricing
               </Link>
               <Link 
                 href="/about" 
