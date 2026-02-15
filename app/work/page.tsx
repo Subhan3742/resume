@@ -1,45 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function Work() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-lg' : 'bg-white/95'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">SM</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">Sara Munir</span>
-            </Link>
-            <div className="hidden md:flex gap-8 items-center">
-              <Link href="/about" className="text-gray-700 hover:text-indigo-600 transition-colors">About</Link>
-              <Link href="/#services" className="text-gray-700 hover:text-indigo-600 transition-colors">Services</Link>
-              <Link href="/#portfolio" className="text-gray-700 hover:text-indigo-600 transition-colors">Portfolio</Link>
-              <Link href="/#clients" className="text-gray-700 hover:text-indigo-600 transition-colors">Clients</Link>
-              <Link href="/work" className="text-indigo-600 font-semibold">Work</Link>
-              <Link href="/#statistics" className="text-gray-700 hover:text-indigo-600 transition-colors">Statistics</Link>
-              <Link href="/#contact" className="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors">Contact</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* Work Experience Section */}
       <section className="pt-32 pb-20 px-6 bg-gray-50">
@@ -51,14 +19,14 @@ export default function Work() {
           <div className="space-y-8">
             {[
               { 
-                period: 'October 2024 - Present', 
+                period: 'October 2024 - Jan 2026', 
                 title: 'Full-Stack Developer', 
                 company: 'Future Dev Solutions - Lahore', 
                 desc: 'Developed and maintained full-stack applications using Next.js, Tailwind CSS, Aceternity UI, and shadcn/ui. Delivered responsive, scalable solutions with a focus on clean UI, performance, and code quality. Collaborated on both client and internal tools, handling front-end interfaces and back-end logic.',
                 projects: ['Future Dev Solutions Website - Company portfolio site', 'OrbyPOS - Restaurant Management System', 'QI Tech - Workflow automation tool']
               },
               { 
-                period: 'Jan 2024 - Mar 2024', 
+                period: 'Jan 2023 - Sep 2024', 
                 title: 'Full Stack Developer', 
                 company: 'VisionBird Technologies', 
                 desc: 'Developed responsive and interactive web applications using React.js, Material-UI, and Tailwind CSS. Collaborated on full-stack projects for clients including Delice Pizza, French Tacos, Rapido Pizza, and British Energy Grants. Focused on building reusable components, improving performance, and integrating frontend interfaces with backend APIs.',
@@ -93,12 +61,7 @@ export default function Work() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <p>&copy; Copyright {new Date().getFullYear()}. • Distributed by ThemeWagon • All right reserved, ATOM.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

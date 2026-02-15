@@ -1,45 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function About() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-lg' : 'bg-white/95'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">SM</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">Sara Munir</span>
-            </Link>
-            <div className="hidden md:flex gap-8 items-center">
-              <Link href="/#about" className="text-indigo-600 font-semibold">About</Link>
-              <Link href="/#services" className="text-gray-700 hover:text-indigo-600 transition-colors">Services</Link>
-              <Link href="/#portfolio" className="text-gray-700 hover:text-indigo-600 transition-colors">Portfolio</Link>
-              <Link href="/#clients" className="text-gray-700 hover:text-indigo-600 transition-colors">Clients</Link>
-              <Link href="/#work" className="text-gray-700 hover:text-indigo-600 transition-colors">Work</Link>
-              <Link href="/#statistics" className="text-gray-700 hover:text-indigo-600 transition-colors">Statistics</Link>
-              <Link href="/#contact" className="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors">Contact</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* About Section */}
       <section className="pt-32 pb-20 px-6 bg-white">
@@ -69,35 +37,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Education Section */}
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Education</h2>
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl p-8 shadow-md">
-              <h3 className="text-2xl font-bold text-indigo-700 mb-2">Bachelor of Computer Science</h3>
-              <p className="text-xl text-gray-800 font-semibold mb-2">University of Gujrat</p>
-              <p className="text-gray-600">2019 - 2024</p>
-            </div>
-            <div className="bg-white rounded-xl p-8 shadow-md">
-              <h3 className="text-2xl font-bold text-indigo-700 mb-2">ICS</h3>
-              <p className="text-xl text-gray-800 font-semibold mb-2">Punjab Group Of Colleges</p>
-              <p className="text-gray-600">2017 - 2019</p>
-            </div>
-            <div className="bg-white rounded-xl p-8 shadow-md">
-              <h3 className="text-2xl font-bold text-indigo-700 mb-2">Matriculation</h3>
-              <p className="text-xl text-gray-800 font-semibold">Miss Farida Sheikh Model High School</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <p>&copy; Copyright {new Date().getFullYear()}. • Distributed by ThemeWagon • All right reserved, ATOM.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

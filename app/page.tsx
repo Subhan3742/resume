@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { 
   SiNextdotjs, 
   SiReact, 
@@ -66,80 +69,110 @@ const TechIcon = ({ name }: { name: string }) => {
 };
 
 export default function Home() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const phrases = [
+    "Sara Munir",
+    "Full Stack Developer",
+    "Web Developer",
+    "Software Engineer"
+  ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    let timeout: NodeJS.Timeout;
+    const currentPhrase = phrases[currentPhraseIndex];
+    
+    if (!isDeleting && typedText === currentPhrase) {
+      // Wait before deleting
+      timeout = setTimeout(() => {
+        setIsDeleting(true);
+      }, 2000);
+    } else if (isDeleting && typedText === '') {
+      // Move to next phrase
+      setIsDeleting(false);
+      setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+    } else if (!isDeleting && typedText.length < currentPhrase.length) {
+      // Type
+      timeout = setTimeout(() => {
+        setTypedText(currentPhrase.substring(0, typedText.length + 1));
+      }, 100);
+    } else if (isDeleting && typedText.length > 0) {
+      // Delete
+      timeout = setTimeout(() => {
+        setTypedText(currentPhrase.substring(0, typedText.length - 1));
+      }, 50);
+    }
+
+    // Blink cursor
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 530);
+
+    return () => {
+      if (timeout) clearTimeout(timeout);
+      clearInterval(cursorInterval);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [typedText, isDeleting, currentPhraseIndex]);
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-lg' : 'bg-white/95'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">SM</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">Sara Munir</span>
-            </Link>
-            <div className="hidden md:flex gap-8 items-center">
-              <Link href="/about" className="text-gray-700 hover:text-indigo-600 transition-colors">About</Link>
-              <a href="#services" className="text-gray-700 hover:text-indigo-600 transition-colors">Services</a>
-              <a href="#portfolio" className="text-gray-700 hover:text-indigo-600 transition-colors">Portfolio</a>
-              <a href="#clients" className="text-gray-700 hover:text-indigo-600 transition-colors">Clients</a>
-              <Link href="/work" className="text-gray-700 hover:text-indigo-600 transition-colors">Work</Link>
-              <a href="#statistics" className="text-gray-700 hover:text-indigo-600 transition-colors">Statistics</a>
-              <Link href="/contact" className="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors">Contact</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* Hero/Author Section */}
-      <section className="pt-32 pb-24 px-6 bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50">
+      <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-block px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-6">
+          <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Image Section - Mobile First */}
+            <div className="relative w-full flex justify-center items-center order-1 md:order-2">
+              {/* Mobile: Circular frame */}
+              <div className="w-64 h-64 md:w-full md:max-w-md md:h-[600px] rounded-full md:rounded-3xl overflow-hidden shadow-2xl relative border-4 md:border-0 border-indigo-200 md:border-none">
+        <Image
+                  src="/saramunir.jpeg"
+                  alt="Sara Munir"
+                  fill
+                  className="object-cover"
+          priority
+                  sizes="(max-width: 768px) 256px, 500px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-purple-600/10"></div>
+              </div>
+            </div>
+            
+            {/* Content Section */}
+            <div className="text-center md:text-left order-2 md:order-1 w-full">
+              <div className="inline-block px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4 md:mb-6">
                 Software Engineer
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Hello I'm <span className="text-indigo-600">Sara Munir</span>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+                <span className="text-gray-900">Hello I'm </span>
+                <span className="text-indigo-600">
+                  {typedText}
+                  {showCursor && <span className="animate-pulse">|</span>}
+                </span>
           </h1>
-              <p className="text-xl text-gray-600 mb-4">
+              <p className="text-lg md:text-xl text-gray-600 mb-3 md:mb-4">
                 Full-Stack Developer | Web Developer
               </p>
-              <p className="text-lg text-gray-500 mb-8">
+              <p className="text-base md:text-lg text-gray-500 mb-6 md:mb-8">
                 Building modern, scalable web applications with cutting-edge technologies
               </p>
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-start">
                 <Link 
                   href="/contact" 
-                  className="inline-block bg-indigo-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl"
+                  className="inline-block bg-indigo-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl text-sm md:text-base"
                 >
                   Let's connect
                 </Link>
                 <a 
                   href="/about" 
-                  className="inline-block border-2 border-indigo-600 text-indigo-600 px-8 py-4 rounded-full font-semibold hover:bg-indigo-50 transition-all"
+                  className="inline-block border-2 border-indigo-600 text-indigo-600 px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold hover:bg-indigo-50 transition-all text-sm md:text-base"
                 >
                   Learn More
                 </a>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="w-full h-96 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-3xl flex items-center justify-center shadow-2xl">
-                <div className="w-64 h-64 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-4 border-white/30">
-                  <span className="text-6xl font-bold text-white">SM</span>
-                </div>
               </div>
             </div>
           </div>
@@ -290,48 +323,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
-      <section id="portfolio" className="py-20 px-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Check out my Portfolio</h2>
-            <p className="text-xl text-gray-600">Here's what I have done in the past</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              'Future Dev Solutions',
-              'OrbyPOS',
-              'QI Tech',
-              'Delice Pizza',
-              'French Tacos',
-              'Rapido Pizza',
-              'British Energy Grants',
-              'Portfolio Site'
-            ].map((project, index) => (
-              <div key={index} className="bg-gradient-to-br from-indigo-400 to-purple-500 rounded-xl h-64 flex items-center justify-center hover:scale-105 transition-transform cursor-pointer">
-                <span className="text-white text-xl font-bold text-center px-4">{project}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Clients Section */}
-      <section id="clients" className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">My latest clients</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-            {[1, 2, 3, 4, 5].map((client) => (
-              <div key={client} className="bg-gray-100 rounded-xl h-32 flex items-center justify-center hover:bg-gray-200 transition-colors">
-                <span className="text-gray-400 font-semibold">Client {client}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Statistics Section */}
       <section id="statistics" className="py-20 px-6 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500">
         <div className="max-w-7xl mx-auto">
@@ -356,8 +347,125 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section id="clients" className="py-20 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">What Clients Say</h2>
+            <p className="text-xl text-gray-600"></p>
+          </div>
+          
+          <div className="relative">
+            {/* Slider Container */}
+            <div className="overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
+              >
+                {[
+                  {
+                    name: 'Ahmed Malik',
+                    role: 'CEO, TechSolutions Pvt Ltd',
+                    company: 'Future Dev Solutions',
+                    review: 'Sara delivered an outstanding website for our company. The design is modern, the code is clean, and the performance is excellent. She understood our requirements perfectly and delivered beyond expectations.',
+                    rating: 5
+                  },
+                  {
+                    name: 'Fatima Sheikh',
+                    role: 'Owner, Delice Pizza',
+                    company: 'Delice Pizza Platform',
+                    review: 'Working with Sara was a great experience. She built our online ordering system quickly and efficiently. The platform is user-friendly and our customers love it. Highly recommended!',
+                    rating: 5
+                  },
+                  {
+                    name: 'Shahzad Ali',
+                    role: 'Founder, Shahzad Collection',
+                    company: 'Shahzad Collection Brand Shop',
+                    review: 'Sara created an amazing e-commerce platform for our fashion brand. The website is beautiful, fast, and easy to use. Our sales have increased significantly since launching. Thank you Sara!',
+                    rating: 5
+                  },
+                  {
+                    name: 'Hassan Khan',
+                    role: 'Restaurant Owner',
+                    company: 'OrbyPOS System',
+                    review: 'The restaurant management system Sara built has transformed our operations. Everything is automated now - from orders to billing. It has saved us so much time and improved our efficiency.',
+                    rating: 5
+                  },
+                  {
+                    name: 'Ayesha Ahmed',
+                    role: 'Business Manager, QI Tech',
+                    company: 'QI Tech Platform',
+                    review: 'Sara developed our workflow automation tool and it has been a game-changer for our business. The forms and reporting features are exactly what we needed. Great work!',
+                    rating: 5
+                  },
+                  {
+                    name: 'Muhammad Raza',
+                    role: 'Director, VisionBird Technologies',
+                    company: 'Multiple Projects',
+                    review: 'Sara is a talented developer with excellent technical skills. She worked on several projects for us including Rapido Pizza and British Energy Grants. Always professional and delivers on time.',
+                    rating: 5
+                  }
+                ].map((testimonial, index) => (
+                  <div key={index} className="min-w-full px-4 md:px-8">
+                    <div className="bg-gray-50 rounded-xl p-8 shadow-lg border border-gray-100 max-w-4xl mx-auto">
+                      <div className="flex items-center gap-1 mb-6 justify-center">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <svg key={i} className="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                      </div>
+                      <p className="text-gray-700 mb-6 italic leading-relaxed text-lg text-center">"{testimonial.review}"</p>
+                      <div className="border-t border-gray-200 pt-6 text-center">
+                        <p className="font-semibold text-gray-900 text-xl">{testimonial.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={() => setCurrentTestimonial((prev) => (prev === 0 ? 5 : prev - 1))}
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-colors z-10"
+              aria-label="Previous testimonial"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => setCurrentTestimonial((prev) => (prev === 5 ? 0 : prev + 1))}
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-colors z-10"
+              aria-label="Next testimonial"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-8">
+              {[0, 1, 2, 3, 4, 5].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    currentTestimonial === index
+                      ? 'bg-indigo-600 w-8'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 relative overflow-hidden">
+      <section className="py-24 px-6 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <div className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white text-sm font-semibold mb-6">
@@ -386,53 +494,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black text-gray-400 py-12 px-6 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">SM</span>
-                </div>
-                <span className="text-xl font-bold text-white">Sara Munir</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                Software Engineer & Full-Stack Developer passionate about building modern web applications.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/work" className="text-gray-400 hover:text-white transition-colors">Work Experience</Link></li>
-                <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Contact Info</h3>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <a href="mailto:saramunir7272@gmail.com" className="hover:text-white transition-colors">saramunir7272@gmail.com</a>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span>G-15 Islamabad</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-sm">&copy; {new Date().getFullYear()} Sara Munir. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
