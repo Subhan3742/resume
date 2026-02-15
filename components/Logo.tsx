@@ -3,9 +3,9 @@
 export default function Logo() {
   return (
     <div className="relative w-20 h-16">
-      {/* First Block - S (Purple gradient) */}
+      {/* First Block - S (Blue gradient) */}
       <div className="absolute top-0 left-0 z-10">
-        <div className="relative bg-gradient-to-br from-purple-500 via-indigo-600 to-purple-800 rounded-xl px-3 py-2.5 shadow-xl transform rotate-[-3deg]">
+        <div className="relative bg-gradient-to-br from-blue-500 via-blue-600 to-slate-700 rounded-xl px-3 py-2.5 shadow-xl transform rotate-[-3deg]">
           <span 
             className="text-black font-black text-2xl tracking-tight block"
             style={{ 
@@ -20,9 +20,9 @@ export default function Logo() {
         <div className="absolute -bottom-0.5 -right-0.5 bg-blue-300 rounded-lg w-[calc(100%+4px)] h-[calc(100%+4px)] -z-10 opacity-50"></div>
       </div>
       
-      {/* Second Block - M (Blue gradient, overlapping) */}
+      {/* Second Block - N (Dark blue gradient, overlapping) */}
       <div className="absolute bottom-0 right-0 z-20 transform rotate-[4deg]">
-        <div className="bg-gradient-to-br from-blue-600 via-indigo-700 to-blue-900 rounded-xl px-3 py-2.5 shadow-xl">
+        <div className="bg-gradient-to-br from-slate-600 via-blue-700 to-slate-800 rounded-xl px-3 py-2.5 shadow-xl">
           <span 
             className="text-black font-black text-2xl tracking-tight block"
             style={{ 
@@ -30,7 +30,7 @@ export default function Logo() {
               WebkitTextStroke: '0.5px rgba(0,0,0,0.1)'
             }}
           >
-            M
+            N
           </span>
         </div>
       </div>

@@ -62,7 +62,7 @@ const TechIcon = ({ name }: { name: string }) => {
   };
 
   return icons[name] || (
-    <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+      <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
       <span className="text-white font-bold text-sm">{name.charAt(0)}</span>
     </div>
   );
@@ -76,7 +76,7 @@ export default function Home() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const phrases = [
-    "Sara Munir",
+    "Subhan Nadeem",
     "Full Stack Developer",
     "Web Developer",
     "Software Engineer"
@@ -123,33 +123,32 @@ export default function Home() {
       <Header />
 
       {/* Hero/Author Section */}
-      <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50">
+      <section className="pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Image Section - Mobile First */}
             <div className="relative w-full flex justify-center items-center order-1 md:order-2">
               {/* Mobile: Circular frame */}
-              <div className="w-64 h-64 md:w-full md:max-w-md md:h-[600px] rounded-full md:rounded-3xl overflow-hidden shadow-2xl relative border-4 md:border-0 border-indigo-200 md:border-none">
+              <div className="w-64 h-64 md:mt-[-50px] md:w-full md:max-w-md md:h-[600px] rounded-full md:rounded-3xl overflow-hidden relative">
         <Image
-                  src="/saramunir.jpeg"
-                  alt="Sara Munir"
-                  fill
+                  src="/subhannadeem.jpeg"
+                  alt="Subhan Nadeem"
+                  fill 
                   className="object-cover"
           priority
                   sizes="(max-width: 768px) 256px, 500px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-purple-600/10"></div>
               </div>
             </div>
             
             {/* Content Section */}
             <div className="text-center md:text-left order-2 md:order-1 w-full">
-              <div className="inline-block px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full text-sm font-semibold mb-4 md:mb-6">
+              <div className="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4 md:mb-6">
                 Software Engineer
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
                 <span className="text-gray-900">Hello I'm </span>
-                <span className="text-indigo-600">
+                <span className="text-blue-600">
                   {typedText}
                   {showCursor && <span className="animate-pulse">|</span>}
                 </span>
@@ -163,13 +162,13 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-start">
                 <Link 
                   href="/contact" 
-                  className="inline-block bg-indigo-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl text-sm md:text-base"
+                  className="inline-block bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl text-sm md:text-base"
                 >
                   Let's connect
                 </Link>
                 <a 
                   href="/about" 
-                  className="inline-block border-2 border-indigo-600 text-indigo-600 px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold hover:bg-indigo-50 transition-all text-sm md:text-base"
+                  className="inline-block border-2 border-blue-600 text-blue-600 px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold hover:bg-blue-50 transition-all text-sm md:text-base"
                 >
                   Learn More
                 </a>
@@ -190,37 +189,37 @@ export default function Home() {
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all border border-gray-100">
               <div className="flex justify-between items-center mb-3">
                 <span className="font-bold text-gray-900 text-lg">Next.js & React.js</span>
-                <span className="text-indigo-600 font-bold text-xl">95%</span>
+                <span className="text-blue-600 font-bold text-xl">95%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                <div className="bg-gradient-to-r from-indigo-600 to-indigo-500 h-4 rounded-full transition-all" style={{ width: '95%' }}></div>
+                <div className="bg-gradient-to-r from-blue-600 to-blue-500 h-4 rounded-full transition-all" style={{ width: '95%' }}></div>
               </div>
             </div>
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all border border-gray-100">
               <div className="flex justify-between items-center mb-3">
                 <span className="font-bold text-gray-900 text-lg">Node.js</span>
-                <span className="text-indigo-600 font-bold text-xl">85%</span>
+                <span className="text-blue-600 font-bold text-xl">85%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                <div className="bg-gradient-to-r from-indigo-600 to-indigo-500 h-4 rounded-full transition-all" style={{ width: '85%' }}></div>
+                <div className="bg-gradient-to-r from-blue-600 to-blue-500 h-4 rounded-full transition-all" style={{ width: '85%' }}></div>
               </div>
             </div>
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all border border-gray-100">
               <div className="flex justify-between items-center mb-3">
                 <span className="font-bold text-gray-900 text-lg">Tailwind CSS</span>
-                <span className="text-indigo-600 font-bold text-xl">98%</span>
+                <span className="text-blue-600 font-bold text-xl">98%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                <div className="bg-gradient-to-r from-indigo-600 to-indigo-500 h-4 rounded-full transition-all" style={{ width: '98%' }}></div>
+                <div className="bg-gradient-to-r from-blue-600 to-blue-500 h-4 rounded-full transition-all" style={{ width: '98%' }}></div>
               </div>
             </div>
             <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all border border-gray-100">
               <div className="flex justify-between items-center mb-3">
                 <span className="font-bold text-gray-900 text-lg">PostgreSQL & MySQL</span>
-                <span className="text-indigo-600 font-bold text-xl">80%</span>
+                <span className="text-blue-600 font-bold text-xl">80%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                <div className="bg-gradient-to-r from-indigo-600 to-indigo-500 h-4 rounded-full transition-all" style={{ width: '80%' }}></div>
+                <div className="bg-gradient-to-r from-blue-600 to-blue-500 h-4 rounded-full transition-all" style={{ width: '80%' }}></div>
               </div>
             </div>
           </div>
@@ -264,14 +263,14 @@ export default function Home() {
           {/* Frontend & Backend */}
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <div className="w-1 h-8 bg-indigo-600 rounded"></div>
+              <div className="w-1 h-8 bg-blue-600 rounded"></div>
               Frontend & Backend
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {['Next.js', 'React.js', 'Node.js', 'Tailwind CSS', 'Bootstrap', 'Material UI', 'shadcn/ui', 'Aceternity UI', 'Magic UI'].map((tech, index) => (
-                <div key={index} className="bg-white rounded-xl p-6 hover:shadow-xl transition-all hover:-translate-y-1 border border-indigo-100">
+                <div key={index} className="bg-white rounded-xl p-6 hover:shadow-xl transition-all hover:-translate-y-1 border border-blue-100">
                   <div className="text-center">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 text-indigo-600">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 text-blue-600">
                       <TechIcon name={tech} />
                     </div>
                     <span className="text-gray-800 font-semibold text-sm">{tech}</span>
@@ -284,14 +283,14 @@ export default function Home() {
           {/* Databases & Testing */}
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <div className="w-1 h-8 bg-indigo-600 rounded"></div>
+              <div className="w-1 h-8 bg-blue-600 rounded"></div>
               Databases & Testing
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {['PostgreSQL', 'MySQL', 'Automated Testing'].map((tech, index) => (
-                <div key={index} className="bg-white rounded-xl p-6 hover:shadow-xl transition-all hover:-translate-y-1 border border-indigo-100">
+                <div key={index} className="bg-white rounded-xl p-6 hover:shadow-xl transition-all hover:-translate-y-1 border border-blue-100">
                   <div className="text-center">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 text-indigo-600">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 text-blue-600">
                       <TechIcon name={tech} />
                     </div>
                     <span className="text-gray-800 font-semibold text-sm">{tech}</span>
@@ -304,14 +303,14 @@ export default function Home() {
           {/* Tools and Softwares */}
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-              <div className="w-1 h-8 bg-indigo-600 rounded"></div>
+              <div className="w-1 h-8 bg-blue-600 rounded"></div>
               Tools and Softwares
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['Git', 'GitHub', 'Bitbucket', 'Jira'].map((tool, index) => (
-                <div key={index} className="bg-white rounded-xl p-6 hover:shadow-xl transition-all hover:-translate-y-1 border border-indigo-100">
+                <div key={index} className="bg-white rounded-xl p-6 hover:shadow-xl transition-all hover:-translate-y-1 border border-blue-100">
                   <div className="text-center">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 text-indigo-600">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 text-blue-600">
                       <TechIcon name={tool} />
                     </div>
                     <span className="text-gray-800 font-semibold text-sm">{tool}</span>
@@ -324,7 +323,7 @@ export default function Home() {
       </section>
 
       {/* Statistics Section */}
-      <section id="statistics" className="py-20 px-6 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500">
+      <section id="statistics" className="py-20 px-6 bg-gradient-to-br from-blue-600 via-slate-700 to-blue-800">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">My Achievements</h2>
@@ -367,42 +366,42 @@ export default function Home() {
                     name: 'Ahmed Malik',
                     role: 'CEO, TechSolutions Pvt Ltd',
                     company: 'Future Dev Solutions',
-                    review: 'Sara delivered an outstanding website for our company. The design is modern, the code is clean, and the performance is excellent. She understood our requirements perfectly and delivered beyond expectations.',
+                    review: 'Subhan delivered an outstanding website for our company. The design is modern, the code is clean, and the performance is excellent. He understood our requirements perfectly and delivered beyond expectations.',
                     rating: 5
                   },
                   {
                     name: 'Fatima Sheikh',
                     role: 'Owner, Delice Pizza',
                     company: 'Delice Pizza Platform',
-                    review: 'Working with Sara was a great experience. She built our online ordering system quickly and efficiently. The platform is user-friendly and our customers love it. Highly recommended!',
+                    review: 'Working with Subhan was a great experience. He built our online ordering system quickly and efficiently. The platform is user-friendly and our customers love it. Highly recommended!',
                     rating: 5
                   },
                   {
                     name: 'Shahzad Ali',
                     role: 'Founder, Shahzad Collection',
                     company: 'Shahzad Collection Brand Shop',
-                    review: 'Sara created an amazing e-commerce platform for our fashion brand. The website is beautiful, fast, and easy to use. Our sales have increased significantly since launching. Thank you Sara!',
+                    review: 'Subhan created an amazing e-commerce platform for our fashion brand. The website is beautiful, fast, and easy to use. Our sales have increased significantly since launching. Thank you Subhan!',
                     rating: 5
                   },
                   {
                     name: 'Hassan Khan',
                     role: 'Restaurant Owner',
                     company: 'OrbyPOS System',
-                    review: 'The restaurant management system Sara built has transformed our operations. Everything is automated now - from orders to billing. It has saved us so much time and improved our efficiency.',
+                    review: 'The restaurant management system Subhan built has transformed our operations. Everything is automated now - from orders to billing. It has saved us so much time and improved our efficiency.',
                     rating: 5
                   },
                   {
                     name: 'Ayesha Ahmed',
                     role: 'Business Manager, QI Tech',
                     company: 'QI Tech Platform',
-                    review: 'Sara developed our workflow automation tool and it has been a game-changer for our business. The forms and reporting features are exactly what we needed. Great work!',
+                    review: 'Subhan developed our workflow automation tool and it has been a game-changer for our business. The forms and reporting features are exactly what we needed. Great work!',
                     rating: 5
                   },
                   {
                     name: 'Muhammad Raza',
                     role: 'Director, VisionBird Technologies',
                     company: 'Multiple Projects',
-                    review: 'Sara is a talented developer with excellent technical skills. She worked on several projects for us including Rapido Pizza and British Energy Grants. Always professional and delivers on time.',
+                    review: 'Subhan is a talented developer with excellent technical skills. He worked on several projects for us including Rapido Pizza and British Energy Grants. Always professional and delivers on time.',
                     rating: 5
                   }
                 ].map((testimonial, index) => (
@@ -428,7 +427,7 @@ export default function Home() {
             {/* Navigation Buttons */}
             <button
               onClick={() => setCurrentTestimonial((prev) => (prev === 0 ? 5 : prev - 1))}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-colors z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-10"
               aria-label="Previous testimonial"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -437,7 +436,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => setCurrentTestimonial((prev) => (prev === 5 ? 0 : prev + 1))}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-colors z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-10"
               aria-label="Next testimonial"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -453,7 +452,7 @@ export default function Home() {
                   onClick={() => setCurrentTestimonial(index)}
                   className={`w-3 h-3 rounded-full transition-all ${
                     currentTestimonial === index
-                      ? 'bg-indigo-600 w-8'
+                      ? 'bg-blue-600 w-8'
                       : 'bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
@@ -465,7 +464,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 relative overflow-hidden">
+      <section className="py-24 px-6 bg-gradient-to-br from-blue-600 via-slate-700 to-blue-800 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <div className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white text-sm font-semibold mb-6">
@@ -480,7 +479,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 
               href="/contact" 
-              className="bg-white text-indigo-600 px-10 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
+              className="bg-white text-blue-600 px-10 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
             >
               Get In Touch
             </Link>

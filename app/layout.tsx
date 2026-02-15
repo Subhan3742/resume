@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sara Munir - Chartered Management Accountant",
-  description: "Professional portfolio of Sara Munir, Chartered Management Accountant specializing in financial reporting, cost accounting, and business analysis.",
+  title: "Subhan Nadeem - Software Engineer",
+  description: "Professional portfolio of Subhan Nadeem, Software Engineer specializing in full-stack web development, modern web technologies, and building scalable applications.",
 };
 
 export default function RootLayout({
