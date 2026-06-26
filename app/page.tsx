@@ -843,13 +843,13 @@ export default function Home() {
         `}</style>
 
         {/* ── Main grid ── */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-28 pb-20 grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 pt-24 pb-12 md:pt-28 md:pb-20 grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-24 items-center">
 
           {/* ── LEFT ── */}
           <div className="order-2 md:order-1 flex flex-col items-center md:items-start text-center md:text-left">
 
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 border border-emerald-500/25 bg-emerald-500/8 text-emerald-400 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-8">
+            <div className="inline-flex items-center gap-2 border border-emerald-500/25 bg-emerald-500/8 text-emerald-400 px-3 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] md:text-[11px] font-bold uppercase tracking-wider md:tracking-widest mb-5 md:mb-8">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
@@ -858,12 +858,12 @@ export default function Home() {
             </div>
 
             {/* Name */}
-            <p className="text-gray-500 text-sm font-medium tracking-[0.2em] uppercase mb-4">
+            <p className="text-gray-500 text-xs md:text-sm font-medium tracking-[0.15em] md:tracking-[0.2em] uppercase mb-3 md:mb-4">
               Subhan Nadeem
             </p>
 
             {/* Heading */}
-            <h1 className="text-[clamp(2.2rem,5vw,3.8rem)] font-extrabold text-white leading-[1.1] tracking-tight mb-4">
+            <h1 className="text-4xl sm:text-5xl md:text-[clamp(2.2rem,5vw,3.8rem)] font-extrabold text-white leading-[1.1] tracking-tight mb-3 md:mb-4">
               Crafting Digital
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400">
@@ -872,32 +872,27 @@ export default function Home() {
             </h1>
 
             {/* Typewriter role */}
-            <div className="flex items-center gap-2 mb-6 h-8">
-              <span className="text-gray-400 text-lg font-medium">{displayed}</span>
-              <span className={`w-0.5 h-5 bg-blue-400 rounded-full transition-opacity duration-100 ${cursor ? 'opacity-100' : 'opacity-0'}`} />
+            <div className="flex items-center justify-center md:justify-start gap-2 mb-4 md:mb-6 h-7">
+              <span className="text-gray-400 text-base md:text-lg font-medium">{displayed}</span>
+              <span className={`w-0.5 h-4 bg-blue-400 rounded-full transition-opacity duration-100 ${cursor ? 'opacity-100' : 'opacity-0'}`} />
             </div>
 
-            {/* Description — short */}
-            <p className="text-gray-500 text-base leading-relaxed max-w-md mb-10">
+            {/* Description */}
+            <p className="text-gray-500 text-sm md:text-base leading-relaxed max-w-sm md:max-w-md mb-7 md:mb-10">
               4+ years building scalable web apps with Next.js, React &amp; Node.js — from concept to production.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-12">
+            <div className="flex flex-wrap gap-2.5 md:gap-3 justify-center md:justify-start mb-6 md:mb-12">
               <Link href="/contact"
-                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full font-semibold text-sm transition-all shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 hover:scale-[1.02]">
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full font-semibold text-sm transition-all shadow-lg shadow-blue-600/30">
                 Let&apos;s Connect
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </Link>
               <Link href="/portfolio"
-                className="inline-flex items-center gap-2 border border-white/12 bg-white/4 hover:bg-white/8 text-gray-300 hover:text-white px-6 py-3 rounded-full font-semibold text-sm transition-all backdrop-blur-sm">
+                className="inline-flex items-center gap-2 border border-white/12 bg-white/4 hover:bg-white/8 text-gray-300 hover:text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full font-semibold text-sm transition-all backdrop-blur-sm">
                 View Work
               </Link>
-              <a href="/subhan-cv.pdf" download
-                className="inline-flex items-center gap-2 border border-white/12 bg-white/4 hover:bg-white/8 text-gray-400 hover:text-white px-6 py-3 rounded-full font-semibold text-sm transition-all backdrop-blur-sm">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                Resume
-              </a>
             </div>
 
             {/* LinkedIn link */}
@@ -908,62 +903,58 @@ export default function Home() {
           </div>
 
           {/* ── RIGHT: Photo ── */}
-          <div className="order-1 md:order-2 relative flex justify-center items-center">
+          <div className="order-1 md:order-2 relative flex justify-center items-center py-6 md:py-0">
 
             {/* Glow */}
-            <div className="absolute w-64 h-64 md:w-80 md:h-80 rounded-full bg-blue-600/15 blur-3xl" />
+            <div className="absolute w-48 h-48 md:w-80 md:h-80 rounded-full bg-blue-600/15 blur-3xl" />
 
-            {/* Outer ring — animated */}
-            <div className="relative w-52 h-52 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80">
+            {/* Ring frame */}
+            <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-72 md:h-72 lg:w-80 lg:h-80">
 
-              {/* Ring 1 — slow spin */}
+              {/* Ring 1 */}
               <div className="absolute inset-0 rounded-full border border-dashed border-blue-500/20 animate-spin" style={{ animationDuration: '25s' }} />
-              {/* Ring 2 — reverse */}
-              <div className="absolute inset-4 rounded-full border border-white/5 animate-spin" style={{ animationDuration: '18s', animationDirection: 'reverse' }} />
+              {/* Ring 2 */}
+              <div className="absolute inset-3 md:inset-4 rounded-full border border-white/5 animate-spin" style={{ animationDuration: '18s', animationDirection: 'reverse' }} />
 
-              {/* Orbit dot */}
+              {/* Orbit dots */}
               <div className="absolute inset-0 animate-spin" style={{ animationDuration: '8s' }}>
-                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-blue-500 shadow-lg shadow-blue-500/60" />
+                <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-blue-500 shadow-lg shadow-blue-500/60" />
               </div>
-              <div className="absolute inset-4 animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }}>
+              <div className="absolute inset-3 md:inset-4 animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }}>
                 <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/60" />
               </div>
 
-              {/* Photo frame */}
-              <div className="absolute inset-8 rounded-full overflow-hidden border border-blue-500/20 shadow-2xl shadow-blue-500/10">
+              {/* Photo */}
+              <div className="absolute inset-6 md:inset-8 rounded-full overflow-hidden border border-blue-500/20 shadow-2xl shadow-blue-500/10">
                 <Image
                   src="/subhannadeem.jpeg"
                   alt="Subhan Nadeem"
                   fill
                   className="object-cover"
                   priority
-                  sizes="(max-width: 640px) 200px, (max-width: 768px) 240px, 296px"
+                  sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, 296px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/50 via-transparent to-transparent" />
               </div>
             </div>
 
-            {/* Floating card — left */}
-            <div className="absolute -left-2 sm:-left-10 top-1/2 -translate-y-1/2 bg-white/4 backdrop-blur-xl border border-white/8 rounded-2xl px-4 py-3 shadow-2xl">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-green-500/15 flex items-center justify-center">
-                  <svg className="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                </div>
-                <div>
-                  <p className="text-white text-xs font-semibold">Open to Work</p>
-                  <p className="text-gray-400 text-[10px]">Full-time / Freelance</p>
-                </div>
+            {/* Floating card — left (desktop only) */}
+            <div className="absolute hidden md:flex -left-10 top-1/2 -translate-y-1/2 bg-white/4 backdrop-blur-xl border border-white/8 rounded-2xl px-4 py-3 shadow-2xl items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-green-500/15 flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <div>
+                <p className="text-white text-xs font-semibold">Open to Work</p>
+                <p className="text-gray-400 text-[10px]">Full-time / Freelance</p>
               </div>
             </div>
 
-            {/* Floating card — bottom */}
-            <div className="absolute -bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 bg-white/4 backdrop-blur-xl border border-white/8 rounded-2xl px-5 py-2.5 shadow-2xl whitespace-nowrap">
-              <div className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-500/15 flex items-center justify-center">
-                  <svg className="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
-                </div>
-                <p className="text-gray-300 text-xs font-medium">4+ Years · 12+ Projects</p>
+            {/* Floating card — bottom (desktop only) */}
+            <div className="absolute hidden md:flex bottom-4 left-1/2 -translate-x-1/2 bg-white/4 backdrop-blur-xl border border-white/8 rounded-2xl px-5 py-2.5 shadow-2xl whitespace-nowrap items-center gap-3">
+              <div className="w-6 h-6 rounded-full bg-blue-500/15 flex items-center justify-center">
+                <svg className="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
               </div>
+              <p className="text-gray-300 text-xs font-medium">4+ Years · 12+ Projects</p>
             </div>
           </div>
         </div>
