@@ -15,11 +15,30 @@ export default function Portfolio() {
 
   const projects = [
     {
+      name: 'Luxera',
+      description: 'A high-end luxury fashion e-commerce store — curated collections, smooth animations, and a seamless checkout flow built for premium brands.',
+      technologies: ['Next.js', 'React.js', 'Tailwind CSS'],
+      features: ['Luxury UI/UX', 'Product Catalog', 'Shopping Cart', 'Checkout Flow', 'Responsive Design'],
+      image: '/two.png',
+      link: 'https://luxera-omega.vercel.app/',
+      gradient: 'from-fuchsia-500 to-purple-700'
+    },
+    {
+      name: 'MN Furniture',
+      description: 'A clean and modern furniture e-commerce store — rich product listings, intuitive browsing, and a polished UI designed to convert visitors into buyers.',
+      technologies: ['Next.js', 'React.js', 'Tailwind CSS'],
+      features: ['Product Listings', 'Modern UI', 'Shopping Cart', 'Responsive Design', 'Fast Loading'],
+      image: '/one.png',
+      link: 'https://mn-furniture-7zqt.vercel.app/',
+      gradient: 'from-amber-500 to-orange-600'
+    },
+    {
       name: 'Future Dev Solutions',
       description: 'Company portfolio website showcasing services and expertise. Built with modern web technologies to create an engaging user experience.',
       technologies: ['Next.js', 'React.js', 'Tailwind CSS', 'Aceternity UI'],
       features: ['Responsive Design', 'Modern UI/UX', 'Performance Optimized', 'SEO Friendly'],
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+      link: 'https://www.futuredevsolutions.com/',
       gradient: 'from-blue-500 to-cyan-600'
     },
     {
@@ -144,6 +163,21 @@ export default function Portfolio() {
                       ))}
                     </ul>
                   </div>
+                  {'link' in project && project.link && (
+                    <div className="mt-5">
+                      <a
+                        href={project.link as string}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors"
+                      >
+                        View Live
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                        </svg>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from '@/components/Header';
@@ -67,6 +67,249 @@ const TechIcon = ({ name }: { name: string }) => {
     </div>
   );
 };
+
+// Featured Projects Showcase Component
+const showcaseProjects = [
+  {
+    number: '01',
+    tag: 'E-Commerce · Luxury',
+    name: 'Luxera',
+    subtitle: 'Luxury Fashion Store',
+    description:
+      'A high-end luxury fashion e-commerce experience — curated collections, smooth animations, and a seamless checkout flow built for premium brands.',
+    link: 'https://luxera-omega.vercel.app/',
+    accentText: 'text-fuchsia-400',
+    accentHover: 'hover:border-fuchsia-400/70 hover:bg-fuchsia-500/15',
+    images: ['/two.png'],
+  },
+  {
+    number: '02',
+    tag: 'E-Commerce · Furniture',
+    name: 'MN Furniture',
+    subtitle: 'Modern Furniture Shop',
+    description:
+      'A clean and modern furniture e-commerce store — rich product listings, intuitive browsing, and a polished UI designed to convert visitors into buyers.',
+    link: 'https://mn-furniture-7zqt.vercel.app/',
+    accentText: 'text-amber-400',
+    accentHover: 'hover:border-amber-400/70 hover:bg-amber-500/15',
+    images: ['/one.png'],
+  },
+];
+
+function ProjectShowcase() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [imgIndex, setImgIndex] = useState(0);
+  const project = showcaseProjects[active];
+
+  // Scroll-driven slide change
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const onScroll = () => {
+      const rect = container.getBoundingClientRect();
+      const totalHeight = container.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / totalHeight));
+      const index = Math.min(
+        showcaseProjects.length - 1,
+        Math.floor(progress * showcaseProjects.length)
+      );
+      setActive(index);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Cycle images within active slide
+  useEffect(() => {
+    setImgIndex(0);
+    if (project.images.length < 2) return;
+    const t = setInterval(() => {
+      setImgIndex((p) => (p + 1) % project.images.length);
+    }, 3500);
+    return () => clearInterval(t);
+  }, [active, project.images.length]);
+
+  return (
+    // Tall scrollable wrapper — each slide gets 100vh of scroll space
+    <div
+      ref={containerRef}
+      style={{ height: `${showcaseProjects.length * 100}vh` }}
+      className="relative"
+    >
+      {/* Sticky viewport */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0a0a0a]">
+
+        {/* Section label — top left */}
+        <div className="absolute top-24 left-6 sm:left-10 lg:left-20 z-30">
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-violet-400 mb-2">Featured Work</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+            Projects I&apos;ve <span className="text-violet-400">Built</span>
+          </h2>
+        </div>
+
+        {/* Background images — all rendered, only active visible */}
+        {showcaseProjects.map((p, pi) =>
+          p.images.map((src, ii) => (
+            <div
+              key={`${pi}-${ii}`}
+              className="absolute inset-0 transition-opacity duration-1000"
+              style={{ opacity: pi === active && ii === imgIndex ? 1 : 0 }}
+            >
+              <Image
+                src={src}
+                alt={p.name}
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority={pi === 0 && ii === 0}
+              />
+            </div>
+          ))
+        )}
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/40 z-10" />
+
+        {/* Content layer */}
+        <div className="absolute inset-0 z-20 flex items-center px-6 sm:px-10 lg:px-20">
+          <div className="w-full max-w-6xl">
+            {showcaseProjects.map((p, i) => (
+              <div
+                key={i}
+                className="max-w-2xl absolute transition-all duration-700"
+                style={{
+                  opacity: i === active ? 1 : 0,
+                  transform: i === active ? 'translateY(0px)' : i < active ? 'translateY(-40px)' : 'translateY(40px)',
+                  pointerEvents: i === active ? 'auto' : 'none',
+                }}
+              >
+                {/* Ghost number */}
+                <span className="block select-none font-serif text-[clamp(56px,12vw,150px)] font-normal leading-[0.8] tracking-tighter text-white/[0.07]">
+                  {p.number}
+                </span>
+
+                {/* Meta row */}
+                <div className="mb-5 mt-1 flex flex-wrap items-center gap-3">
+                  <span className="text-[12px] font-extrabold uppercase tracking-[0.2em] text-white">
+                    {p.name}
+                  </span>
+                  <span className="h-px w-4 bg-white/25" />
+                  <span className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${p.accentText}`}>
+                    {p.tag}
+                  </span>
+                </div>
+
+                {/* Heading */}
+                <h3 className="mb-3 font-serif text-[clamp(40px,7vw,92px)] font-bold leading-[0.98] tracking-tight text-white">
+                  {p.name}
+                </h3>
+
+                {/* Subtitle */}
+                <p className={`mb-4 text-[clamp(14px,1.3vw,19px)] font-medium ${p.accentText}`}>
+                  {p.subtitle}
+                </p>
+
+                {/* Description */}
+                <p className="mb-9 max-w-[460px] text-sm leading-[1.85] text-white/55 sm:text-[15px]">
+                  {p.description}
+                </p>
+
+                {/* CTAs */}
+                <div className="flex flex-wrap items-center gap-4">
+                  <a
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`group inline-flex items-center gap-2.5 border border-white/20 px-8 py-4 text-[12px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm transition duration-300 ${p.accentHover}`}
+                  >
+                    Explore
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" strokeWidth="2"
+                      strokeLinecap="round" strokeLinejoin="round"
+                      className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      aria-hidden="true"
+                    >
+                      <path d="M7 7h10v10" />
+                      <path d="M7 17 17 7" />
+                    </svg>
+                  </a>
+                  <a
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-2.5 bg-white text-black px-8 py-4 text-[12px] font-bold uppercase tracking-[0.14em] transition duration-300 hover:bg-white/90"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" strokeWidth="2"
+                      strokeLinecap="round" strokeLinejoin="round"
+                      className="h-3.5 w-3.5"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                    Visit Site
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Slide counter — bottom right */}
+        <div className="absolute bottom-8 right-8 z-30 flex items-center gap-5">
+          {showcaseProjects.map((_, i) => (
+            <div
+              key={i}
+              className={`flex items-center gap-2 transition-all duration-500 ${
+                i === active ? 'opacity-100' : 'opacity-35'
+              }`}
+            >
+              <span className={`block h-px transition-all duration-500 bg-white ${i === active ? 'w-8' : 'w-3'}`} />
+              <span className="text-[11px] font-bold uppercase tracking-widest text-white">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Image dots — bottom center (only if multiple images) */}
+        {project.images.length > 1 && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+            {project.images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setImgIndex(i)}
+                aria-label={`Image ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === imgIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Scroll hint — first slide only */}
+        {active === 0 && (
+          <div className="absolute bottom-8 left-6 sm:left-10 lg:left-20 z-30 flex items-center gap-2 text-white/40">
+            <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
+            <svg className="w-3.5 h-3.5 animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -178,6 +421,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Featured Projects Showcase */}
+      <ProjectShowcase />
+
       {/* Skills Section */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-5xl mx-auto">
@@ -248,165 +494,6 @@ export default function Home() {
                 <p className="text-gray-600">{service.desc}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Packages Section - Basic Plans Only */}
-      <section className="py-20 px-4 md:px-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Pricing Packages</h2>
-            <p className="text-lg md:text-xl text-gray-600">Starting packages for your project</p>
-            <Link href="/pricing" className="inline-block mt-4 text-blue-600 hover:text-blue-700 font-semibold">
-              View All Packages & Details →
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {/* WordPress Basic */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border-2 border-gray-200 hover:border-blue-600 transition-all hover:shadow-2xl">
-              <div className="text-center mb-6">
-                <div className="text-5xl mb-4">💻</div>
-                <div className="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold mb-3">Silver (Basic)</div>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">WordPress Website</h3>
-                <div className="flex items-baseline justify-center gap-2 mb-4">
-                  <span className="text-3xl md:text-4xl font-bold text-blue-600">$300</span>
-                </div>
-                <p className="text-gray-500 text-sm">One-Time Cost</p>
-              </div>
-              <ul className="space-y-2 mb-6 md:mb-8 text-sm">
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Up to 3 pages</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Template-based design</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Basic form</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">7-10 days delivery</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">1 revision</span>
-                </li>
-              </ul>
-              <Link href="/pricing" className="block w-full bg-gray-600 text-white text-center px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all text-sm md:text-base">
-                View Details
-              </Link>
-            </div>
-
-            {/* Shopify Basic */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border-2 border-gray-200 hover:border-blue-600 transition-all hover:shadow-2xl">
-              <div className="text-center mb-6">
-                <div className="text-5xl mb-4">🛒</div>
-                <div className="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold mb-3">Silver (Basic)</div>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Shopify Store</h3>
-                <div className="flex items-baseline justify-center gap-2 mb-4">
-                  <span className="text-3xl md:text-4xl font-bold text-blue-600">$500</span>
-                </div>
-                <p className="text-gray-500 text-sm">One-Time Cost</p>
-              </div>
-              <ul className="space-y-2 mb-6 md:mb-8 text-sm">
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Up to 3 pages</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Template-based design</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Basic form</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">7-10 days delivery</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">1 revision</span>
-                </li>
-              </ul>
-              <Link href="/pricing" className="block w-full bg-gray-600 text-white text-center px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all text-sm md:text-base">
-                View Details
-              </Link>
-            </div>
-
-            {/* Custom Next.js Basic */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg border-2 border-gray-200 hover:border-blue-600 transition-all hover:shadow-2xl">
-              <div className="text-center mb-6">
-                <div className="text-5xl mb-4">⚡</div>
-                <div className="inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold mb-3">Silver (Basic)</div>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Custom Next.js</h3>
-                <div className="flex items-baseline justify-center gap-2 mb-4">
-                  <span className="text-3xl md:text-4xl font-bold text-blue-600">$800</span>
-                </div>
-                <p className="text-gray-500 text-sm">One-Time Cost</p>
-              </div>
-              <ul className="space-y-2 mb-6 md:mb-8 text-sm">
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Up to 3 pages</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Template-based design</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">Basic form</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">7-10 days delivery</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-gray-700">1 revision</span>
-                </li>
-              </ul>
-              <Link href="/pricing" className="block w-full bg-gray-600 text-white text-center px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-all text-sm md:text-base">
-                View Details
-              </Link>
-            </div>
           </div>
         </div>
       </section>
